@@ -1,0 +1,378 @@
+# -*- coding:utf-8 -*-
+
+#swagger: '2.0'
+#info:
+#    title: '添加系统消息 API'        #文档标题
+#    version: "V1.0"        #版本号
+##host: www.jxc.com:8090      #域名，可以包含端口。如果不提供host，那么默认为提供yaml文件的host
+#basePath: /POST/system/SystemMessage              #前缀，比如/v1
+#schemes:                    #传输协议
+#    - http
+#    - https
+#
+#paths:    https: www.jxc.com:8090/POST/system/SystemMessage              #定义接口的URL的详细信息
+#    /say_hello:         #接口后缀
+#        POST:
+#            operationId: sysmsg.add_sys_msg                          #操作的唯一ID，指定要调用的python函数
+#            summary: Returns a greeting.                        #接口描述
+#            parameters:                                         #接口的参数
+#                - name: ProductId                                     #参数名
+#                  in: query                                      #该参数应该在哪个地方
+#                  type: string                                   #参数类型
+#                  required: True                                #参数是否必须
+#                  #default：                                      #设置默认值
+#                  description: '产品线编号'                       # 参数描述
+#            deprecated: false                                   # 该接口是否已经弃用
+#            responses:                                          #设置响应
+#                200:                                             #响应状态码
+#                    description: successful response.           #该响应的描述
+#                    schema:                                      #定义返回数据的结构
+#                        type: object
+#                        properties:
+#                            message:
+#                                type: string
+#                                description: Message Send
+
+swagger: '2.0'
+info:
+    title:  SystemMessage         #文档标题
+    version: "V1.0"        #版本号
+#host: www.jxc.com:8090      #域名，可以包含端口。如果不提供host，那么默认为提供yaml文件的host
+basePath: /msg               #前缀，比如/v1
+schemes:                    #传输协议
+    - http
+    - https
+
+paths:                  #定义接口的URL的详细信息
+    /get_msg:         #接口后缀
+        get:
+            operationId: get_msg.get                      #操作的唯一ID，指定要调用的python函数
+            summary: "查询该产品线下的系统信息"                        #接口描述
+            parameters:                                         #接口的参数
+                - name: Product_Line_Id                                     #参数名
+                  in: query                                     #该参数应该在哪个地方
+                  type: string                                  #参数类型
+                  required: False                               #参数是否必须
+                  #default：                                     #设置默认值
+                  description: 产品线编号                         # 参数描述
+            responses:                                          #设置响应
+                200:                                            #响应状态码
+                    description: successful response.           #该响应的描述
+                    schema:                                     #定义返回数据的结构
+                        type: object
+                        properties:
+                            message:
+                                type: string
+                                description: Message Send
+
+
+    /add_msg:         #接口后缀
+        get:
+            operationId: sysmsg.add_msg                     #操作的唯一ID，指定要调用的python函数
+            summary: "添加系统 "                        #接口描述
+            parameters:                                         #接口的参数
+                - name: AdministratorId                                    #参数名
+                  in: query                                     #该参数应该在哪个地方
+                  type: string                                  #参数类型
+                  required: False                               #参数是否必须
+                  #default：                                     #设置默认值
+                  description: 管理员账号                         # 参数描述
+                - name: ProductId                                    #参数名
+                  in: query                                     #该参数应该在哪个地方
+                  type: string                                  #参数类型
+                  required: False                               #参数是否必须
+                  description: 产品线编号                         # 参数描述
+                - name: MessageName                                    #参数名
+                  in: query                                     #该参数应该在哪个地方
+                  type: string                                  #参数类型
+                  required: False                               #参数是否必须
+                  description: 系统消息名称                         # 参数描述
+                - name: MessageContent                                    #参数名
+                  in: query                                     #该参数应该在哪个地方
+                  type: string                                  #参数类型
+                  required: False                               #参数是否必须
+                  description: 系统消息内容                         # 参数描述
+                - name: CreateTime                                    #参数名
+                  in: query                                     #该参数应该在哪个地方
+                  type: string                                  #参数类型
+                  required: False                               #参数是否必须
+                  description: 创建时间                         # 参数描述
+            responses:                                          #设置响应
+                200:                                            #响应状态码
+                    description: successful response.           #该响应的描述
+                    schema:                                     #定义返回数据的结构
+                        type: object
+                        properties:
+                            message:
+                                type: string
+                                description: Message Send
+
+
+#
+#
+
+
+
+
+##
+##必要字段！Swagger规范版本，必须填2.0，否则该YAML将不能用于Swagger其他组件
+#swagger: '2.0'
+##必要字段！描述API接口信息的元数据
+#info:
+#  #接口标题
+#  title: 系统消息　
+#  #接口文档的描述
+#  description: 支持查询新增修改删除
+#  #版本号
+#  version: 1.0.0
+##Swagger会提供测试用例，host指定测试时的主机名，如果没有指定就是当前主机,可以指定端口．
+#host: 127.0.0.1
+##定义的api的前缀，必须已/开头,测试用例的主机则为:host＋bashPath
+#basePath: /msg
+##指定调用接口的协议，必须是:"http", "https", "ws", "wss"．默认是http.-表示是个数组元素，即schemes接受一个数组参数
+#schemes:
+#  - http
+#  - https
+##对应与http协议头request的Accept，调用者可接受类型,默认是*/*,定义的类型必须是http协议定义的 Mime Types,RestfulAPI一般定义成application/json
+##这两个是对所有接口的全局设置，在细化的接口中是还可以对应这两个属性来覆盖全局属性
+#produces:
+#  - application/json
+##必要字段!定义可有可操作的API
+#paths:
+#  /msg:
+#   #必要字段!定义HTTP操作方法，必须是http协议定义的方法
+#    get:
+#      #接口概要
+#      summary: 查询所有系统消息
+#      #接口描述
+#      description: 查询出改产品线下的所有系统消息
+#      #标签，方便快速过滤出User相关的接口
+#      tags:
+#        - Message
+#      #返回值描述，必要自动
+#      responses:
+#        #返回的http状态码
+#        200:
+#          description: 所有系统消息的集合信息
+#          #描述返回值
+#          schema:
+#            #返回值格式，可选的有array,integer,string,boolean
+#            type: array
+#            #针对array,每个条目的格式,type定义为array．必要填写items
+#            items:
+#              #引用在definitions下定义的Users
+#              $ref: '#/definitions/User'
+#        #执行出错的处理
+#        default:
+#          description: 操作异常,执行失败.返回信息描述错误详情
+#          schema:
+#            #值类型
+#            type: object
+#            #定义属性
+#            properties:
+#            #属性名
+#              message:
+#                #类型
+#                type: string
+#
+#    #即对于同一个url定义两个不同的方法，表示两个接口
+#    post:
+#      description: 新增一条系统消息
+#      #请求参数
+#      parameters:
+#          #参数key
+#        - name: AdministratorId
+#          #传递方法，formData表示表单传输，还有query表示url拼接传输，path表示作为url的一部分
+#          #body表示http头承载参数(body只能有一个,有body不能在有其他的)
+#          in: formData
+#          #参数描述
+#          description: 管理员账号
+#          #参数是否必要，默认false
+#          required: true
+#          #参数类型，可选的包括array,integer,boolean,string.使用array必须使用items
+#          type: string
+#        - name: ProductId
+#          in: formData
+#          description: 产品线编号
+#          required: true
+#          type: string
+#        - name: MessageName
+#          in: formData
+#          type: string
+#          description: 系统消息名称
+#          #非必要字段
+#          required: false
+#        - name: MessageContent
+#          in: formData
+#          description: 系统消息内容
+#          required: true
+#          type: string
+#        - name: CreateTime
+#          in: formData
+#          description: 创建时间
+#          required: true
+#          type: string
+#      responses:
+#        #返回的http状态码
+#        200:
+#          description: 通过返回值来标示执行结果　返回true表示执行成功
+#          schema:
+#             #值类型
+#              type: object
+#              #定义属性
+#              properties:
+#              #属性名
+#                status:
+#                  #类型
+#                  type: boolean
+#                  #描述
+#                  description: 是否成功
+#        #执行出错的处理
+#        default:
+#          description: 操作异常,执行失败.返回信息描述错误详情
+#          schema:
+#            #值类型
+#            type: object
+#            #定义属性
+#            properties:
+#            #属性名
+#              message:
+#                #类型
+#                type: string
+#
+#  /msg/{productId}:
+#    #{id}表示id为请求参数，例如/users/1,/users/2都是对该API的请求，此时id即为１和2
+#    get:
+#      summary: 根据产品线id查询该产品线的所有系统信息
+#      description: 查询出某个产品线的所有系统信息名称，内容等
+#      tags:
+#        - Message
+#      parameters:
+#        #上面接口中定义了{productId}，则参数列表中必须包含参数id,并且请求类型为path
+#        - name: AdministratorId
+#          in: path
+#          description: 管理员ID,它是唯一标识
+#          required: true
+#          type: string
+#         - name: ProductId
+#          in: path
+#          description: 产品线ID,它是唯一标识
+#          required: true
+#          type: string
+#      responses:
+#        200:
+#          description: 所有用户信息或者用户的集合信息
+#          schema:
+#              $ref: '#/definitions/User'
+#        default:
+#          description: 操作异常,执行失败.返回信息描述错误详情
+#          schema:
+#              #值类型
+#              type: object
+#              #定义属性
+#              properties:
+#              #属性名
+#                message:
+#                  #类型
+#                  type: string
+#
+#    #http定义的delete方法,删除一个资源
+#    delete:
+#      summary: 删除系统消息
+#      description: 删除系统消息，被删除的系统消息状态改变
+#      parameters:
+#        - name: id
+#          in: path
+#          type: string
+#          required: true
+#          description: 用户的唯一标示符
+#      tags:
+#        - User
+#      responses:
+#        200:
+#          description: 通过返回值来标示执行结果　返回true表示执行成功
+#          schema:
+#             #值类型
+#              type: object
+#              #定义属性
+#              properties:
+#              #属性名
+#                status:
+#                  #类型
+#                  type: boolean
+#                  #描述
+#                  description: 是否成功
+#        default:
+#          description: 操作异常,执行失败.返回信息描述错误详情
+#          schema:
+#              #值类型
+#              type: object
+#              #定义属性
+#              properties:
+#              #属性名
+#                message:
+#                  #类型
+#                  type: string
+#                  #描述错误信息
+#
+#    #http定义的patch方法，表示修改一个资源
+#    patch:
+#      summary: 用户信息修改
+#      description: 修改用户信息(用户名别名)
+#      parameters:
+#        - name: id
+#          in: path
+#          description: 用户名,要修改的数据的唯一标识符
+#          required: true
+#          type: string
+#        - name: alias
+#          in: formData
+#          description: 新的用户别名
+#          required: true
+#          type: string
+#      tags:
+#        - User
+#      responses:
+#        200:
+#          description: 通过返回值来标示执行结果　返回true表示执行成功
+#          schema:
+#            #值类型
+#              type: object
+#              #定义属性
+#              properties:
+#              #属性名
+#                status:
+#                  #类型
+#                  type: boolean
+#                  #描述
+#                  description: 是否成功
+#        default:
+#          description: 操作异常,执行失败.返回信息描述错误详情
+#          schema:
+#              #值类型
+#              type: object
+#              #定义属性
+#              properties:
+#              #属性名
+#                message:
+#                  #类型
+#                  type: string
+#                  #描述错误信息
+#definitions:
+#  User:
+#    #值类型
+#    type: object
+#    #定义属性
+#    properties:
+#    #属性名
+#      id:
+#        #类型
+#        type: string
+#        #描述
+#        description: 用户的唯一id
+#      username:
+#        type: string
+#        description: 用户名
+#      alias:
+#        type: string
+#        description: 别名
