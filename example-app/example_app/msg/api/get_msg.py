@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
+
+
 from __future__ import absolute_import, print_function
 
 from flask import request, g
 
-from . import Resource
+from . import Resource as a
 from .. import schemas
-
-from . import Resource
 
 import connexion
 
@@ -16,7 +16,7 @@ import pymysql.cursors
 
 app = connexion.App(__name__)
 
-class GetMsg(Resource):
+class GetMsg(a):
 
     def get(Product_Line_Id=None):
         print(g.args)
