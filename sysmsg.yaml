@@ -68,7 +68,7 @@ paths:                  #定义接口的URL的详细信息
 
     /add_msg:         #接口后缀
         get:
-            operationId: sysmsg.add_msg                     #操作的唯一ID，指定要调用的python函数
+            operationId: sysmsg.add_sys_msg                     #操作的唯一ID，指定要调用的python函数
             summary: "添加系统 "                        #接口描述
             parameters:                                         #接口的参数
                 - name: AdministratorId                                    #参数名

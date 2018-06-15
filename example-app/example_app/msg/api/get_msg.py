@@ -3,10 +3,13 @@
 
 from __future__ import absolute_import, print_function
 
+import self as self
 from flask import request, g
+from gevent import os
 
-from . import Resource as a
+from . import Resource
 from .. import schemas
+from flask import Blueprint
 
 import connexion
 
@@ -16,7 +19,7 @@ import pymysql.cursors
 
 app = connexion.App(__name__)
 
-class GetMsg(a):
+class GetMsg(self):
 
     def get(Product_Line_Id=None):
         print(g.args)
@@ -26,7 +29,7 @@ class GetMsg(a):
         sql_select = '''select  MESSAGE_NAME,
                                             MESSAGE_CONTENT
                                             from SYSTEM_MESSAGE
-                                            # where PRODUCT_LINE_ID = % s ''' % (Product_Line_Id)
+                                            where PRODUCT_LINE_ID = % s ''' % (Product_Line_Id)
         print(sql_select)
         cursor.execute(sql_select)
         values = cursor.fetchall()
@@ -39,3 +42,7 @@ class GetMsg(a):
         # 关闭数据库连接
         conn.close()
         return {"系统信息": j}, 200, None
+
+# 调用文件
+app.add_api(os.path.join(os.path.dirname(__file__), 'sysmsg.yaml').replace("python", "api"))
+app.run(port=8090)
