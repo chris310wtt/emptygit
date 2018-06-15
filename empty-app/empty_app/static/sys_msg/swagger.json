@@ -1,0 +1,96 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "SystemMessage",
+    "version": "V1.0"
+  },
+  "basePath": "/sys_msg",
+  "paths": {
+    "/get_msg": {
+      "get": {
+        "operationId": "get_sys_msg.get",
+        "summary": "\u67e5\u8be2\u8be5\u4ea7\u54c1\u7ebf\u4e0b\u7684\u7cfb\u7edf\u4fe1\u606f",
+        "parameters": [
+          {
+            "name": "Product_Line_Id",
+            "in": "query",
+            "type": "string",
+            "required": false,
+            "description": "\u4ea7\u54c1\u7ebf\u7f16\u53f7"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful response.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "description": "Message Send"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/add_msg": {
+      "get": {
+        "operationId": "add_sys_msg.get",
+        "summary": "\u6dfb\u52a0\u7cfb\u7edf ",
+        "parameters": [
+          {
+            "name": "AdministratorId",
+            "in": "query",
+            "type": "string",
+            "required": false,
+            "description": "\u7ba1\u7406\u5458\u8d26\u53f7"
+          },
+          {
+            "name": "ProductId",
+            "in": "query",
+            "type": "string",
+            "required": false,
+            "description": "\u4ea7\u54c1\u7ebf\u7f16\u53f7"
+          },
+          {
+            "name": "MessageName",
+            "in": "query",
+            "type": "string",
+            "required": false,
+            "description": "\u7cfb\u7edf\u6d88\u606f\u540d\u79f0"
+          },
+          {
+            "name": "MessageContent",
+            "in": "query",
+            "type": "string",
+            "required": false,
+            "description": "\u7cfb\u7edf\u6d88\u606f\u5185\u5bb9"
+          },
+          {
+            "name": "CreateTime",
+            "in": "query",
+            "type": "string",
+            "required": false,
+            "description": "\u521b\u5efa\u65f6\u95f4"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful response.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "description": "Message Send"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
