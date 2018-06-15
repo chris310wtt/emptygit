@@ -38,7 +38,7 @@ info:
     title:  SystemMessage         #文档标题
     version: "V1.0"        #版本号
 #host: www.jxc.com:8090      #域名，可以包含端口。如果不提供host，那么默认为提供yaml文件的host
-basePath: /msg               #前缀，比如/v1
+basePath: /sys_msg               #前缀，比如/v1
 schemes:                    #传输协议
     - http
     - https
@@ -46,7 +46,7 @@ schemes:                    #传输协议
 paths:                  #定义接口的URL的详细信息
     /get_msg:         #接口后缀
         get:
-            operationId: get_msg.get                      #操作的唯一ID，指定要调用的python函数
+            operationId: get_sys_msg.get                      #操作的唯一ID，指定要调用的python函数
             summary: "查询该产品线下的系统信息"                        #接口描述
             parameters:                                         #接口的参数
                 - name: Product_Line_Id                                     #参数名
@@ -68,7 +68,7 @@ paths:                  #定义接口的URL的详细信息
 
     /add_msg:         #接口后缀
         get:
-            operationId: sysmsg.add_sys_msg                     #操作的唯一ID，指定要调用的python函数
+            operationId: add_sys_msg.get                   #操作的唯一ID，指定要调用的python函数
             summary: "添加系统 "                        #接口描述
             parameters:                                         #接口的参数
                 - name: AdministratorId                                    #参数名
