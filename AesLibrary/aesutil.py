@@ -1,4 +1,5 @@
-﻿# *- coding: UTF-8 -*-
+﻿
+# *- coding: UTF-8 -*-
 
 from Crypto.Cipher import AES
 from binascii import b2a_hex, a2b_hex
@@ -20,7 +21,7 @@ class AESUtil(object):
     # 如果大于16当时不是16的倍数，那就补足为16的倍数。
 
     # 进行加密算法，模式ECB模式，把叠加完16位的秘钥传进来
-    def encrypt(self, text,key):
+    def encrypt(self, text, key):
         # key = '52fe1fa986cdb7dfc85799a456ad45af'
         # self.key =
         strKey = key.encode('utf-8').lower()
@@ -35,8 +36,8 @@ class AESUtil(object):
 
 
     # 解密后，去掉补足的空格用strip() 去掉
-    def decrypt(self, text,key):
-        # key = '52fe1fa986cdb7dfc85799a456ad45af'
+    def decrypt(self, text, key):
+        text = text.lower()
         # self.key =
         strKey = key.encode('utf-8').lower()
         # a2b_hex(strKey)
@@ -50,11 +51,13 @@ class AESUtil(object):
         return response.strip('')
 
 
-# if __name__ == '__main__':
-#     pc = AESUtil()  # 初始化密钥
-#     keyStr = '52fe1fa986cdb7dfc85799a456ad45af'
-#     encryptStr = "{\"busiParams\": {\"serviceNum\": \"010010327881\",\"endTime\": \"2017-08-03\",\"startTime\": \"2017-04-07\"},\"pubInfo\": {\"interfaceId\": \"\",\"transactionId\": \"WEB20170707105545257737\",\"interfaceType\": \"52\",\"opId\": \"9080\",\"countyCode\": \"\",\"orgId\": \"1010001\",\"clientIP\": \"\",\"transactionTime\": \"\",\"regionCode\": \"\"}}"
-#     e = pc.encrypt(encryptStr,keyStr)  # 加密
-#     print(e)
-#     d = pc.decrypt(e)  # 解密
-#     print("解密:", d)
+if __name__ == '__main__':
+    pc = AESUtil()  # 初始化密钥
+    keyStr = '52fe1fa986cdb7dfc85799a456ad45af'
+    encryptStr = "{\"busiParams\": {\"serviceNum\": \"010010327881\",\"endTime\": \"2017-08-03\",\"startTime\": \"2017-04-07\"},\"pubInfo\": {\"interfaceId\": \"\",\"transactionId\": \"WEB20170707105545257737\",\"interfaceType\": \"52\",\"opId\": \"9080\",\"countyCode\": \"\",\"orgId\": \"1010001\",\"clientIP\": \"\",\"transactionTime\": \"\",\"regionCode\": \"\"}}"
+    e = pc.encrypt(encryptStr, keyStr)  # 加密
+    print(e)
+    decryptStr = "768CA266D1642825EB882E69BC4402F12C7623A88063AC8ECE7987849FD1EC54ED87276D13B90BADE1FF3EBC99464B5B37029CA551DF0F8D53EB7D83966DFEF23F0016079C0249E424F4337DB57571821A30BD8403F41A6BA9FF9ABE1E0CE6706A11A534440ED85B6C99D68CA91BEFF9"
+    d = pc.decrypt(decryptStr, keyStr)
+    # print(isinstance(d, str)) #看下解密后编码格式
+    print(d)
