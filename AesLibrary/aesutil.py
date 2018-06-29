@@ -5,6 +5,12 @@
 from Crypto.Cipher import AES
 from binascii import b2a_hex, a2b_hex
 
+import sys
+sys.setdefaultencoding('UTF-8')
+
+
+
+
 
 class AESUtil(object):
 
@@ -31,7 +37,7 @@ class AESUtil(object):
         self.mode = AES.MODE_ECB
         BS = AES.block_size
         self.pad = lambda s: s + (BS - len(s) % BS) * chr(BS - len(s) % BS)
-        cipher = AES.new(self.key,self.mode)
+        cipher = AES.new(self.key, self.mode)
         encrypted = cipher.encrypt(self.pad(text).encode())
         return b2a_hex(encrypted).upper()
 
@@ -49,7 +55,8 @@ class AESUtil(object):
         cryptor = AES.new(self.key, self.mode)
         plain_text = cryptor.decrypt(a2b_hex(text))
         response = bytes.decode(plain_text).strip('\0').strip('')
-        response = response.encode('UTF-8')
+        # print(response)
+        # response = response.encode('UTF-8')
         return response
 
 
