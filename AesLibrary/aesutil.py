@@ -1,4 +1,6 @@
-﻿from Crypto.Cipher import AES
+﻿# *- coding: UTF-8 -*-
+
+from Crypto.Cipher import AES
 from binascii import b2a_hex, a2b_hex
 
 
@@ -44,8 +46,8 @@ class AESUtil(object):
         self.pad = lambda s: s + (BS - len(s) % BS) * chr(BS - len(s) % BS)
         cryptor = AES.new(self.key, self.mode)
         plain_text = cryptor.decrypt(a2b_hex(text))
-        return bytes.decode(plain_text).strip('\0')
-
+        response = bytes.decode(plain_text).strip('\0')
+        return response.strip('')
 
 
 # if __name__ == '__main__':
