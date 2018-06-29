@@ -1,6 +1,7 @@
 ﻿
 # *- coding: UTF-8 -*-
 
+
 from Crypto.Cipher import AES
 from binascii import b2a_hex, a2b_hex
 
@@ -47,8 +48,9 @@ class AESUtil(object):
         self.pad = lambda s: s + (BS - len(s) % BS) * chr(BS - len(s) % BS)
         cryptor = AES.new(self.key, self.mode)
         plain_text = cryptor.decrypt(a2b_hex(text))
-        response = bytes.decode(plain_text).strip('\0')
-        return response.strip('')
+        response = bytes.decode(plain_text).strip('\0').strip('')
+        response = response.encode('UTF-8')
+        return response
 
 
 if __name__ == '__main__':
@@ -60,4 +62,5 @@ if __name__ == '__main__':
     decryptStr = "768CA266D1642825EB882E69BC4402F12C7623A88063AC8ECE7987849FD1EC54ED87276D13B90BADE1FF3EBC99464B5B37029CA551DF0F8D53EB7D83966DFEF23F0016079C0249E424F4337DB57571821A30BD8403F41A6BA9FF9ABE1E0CE6706A11A534440ED85B6C99D68CA91BEFF9"
     d = pc.decrypt(decryptStr, keyStr)
     # print(isinstance(d, str)) #看下解密后编码格式
+    # print(type(d))
     print(d)
