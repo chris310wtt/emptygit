@@ -1,6 +1,4 @@
-﻿
-# *- coding: UTF-8 -*-
-
+﻿# *- coding: UTF-8 -*-
 
 from Crypto.Cipher import AES
 from binascii import b2a_hex, a2b_hex
@@ -8,50 +6,31 @@ from binascii import b2a_hex, a2b_hex
 
 class AESUtil(object):
 
-    # def __init__(self):
-        # key = '52fe1fa986cdb7dfc85799a456ad45af'
-        # self.key =
-        # strKey = key.encode('utf-8').lower()
-        # # a2b_hex(strKey)
-        # self.key = a2b_hex(strKey)
-        # self.mode = AES.MODE_ECB
-        # BS = AES.block_size
-        # self.pad = lambda s: s + (BS - len(s) % BS) * chr(BS - len(s) % BS)
+    def __init__(self, key):
+        strKey = key.encode('utf-8').lower()
+        self.key = a2b_hex(strKey)
+        self.mode = AES.MODE_ECB
+        BS = AES.block_size
+        self.pad = lambda s: s + (BS - len(s) % BS) * chr(BS - len(s) % BS)
+        self.unPad = lambda s: s[0:-ord(s[-1])]
 
     # 加密函数，如果text不足16位就用空格补足为16位，
     # 如果大于16当时不是16的倍数，那就补足为16的倍数。
 
     # 进行加密算法，模式ECB模式，把叠加完16位的秘钥传进来
-    def encrypt(self, text, key):
-        # key = '52fe1fa986cdb7dfc85799a456ad45af'
-        # self.key =
-        strKey = key.encode('utf-8').lower()
-        # a2b_hex(strKey)
-        self.key = a2b_hex(strKey)
-        self.mode = AES.MODE_ECB
-        BS = AES.block_size
-        self.pad = lambda s: s + (BS - len(s) % BS) * chr(BS - len(s) % BS)
+    def encrypt(self, text):
         cipher = AES.new(self.key, self.mode)
         encrypted = cipher.encrypt(self.pad(text).encode())
         return b2a_hex(encrypted).upper()
 
-
-    # 解密后，去掉补足的空格用strip() 去掉
-    def decrypt(self, text, key):
-        text = text.encode('utf-8').lower()
-        # self.key =
-        strKey = key.encode('utf-8').lower()
-        # a2b_hex(strKey)
-        self.key = a2b_hex(strKey)
-        self.mode = AES.MODE_ECB
-        BS = AES.block_size
-        self.pad = lambda s: s + (BS - len(s) % BS) * chr(BS - len(s) % BS)
-        cryptor = AES.new(self.key, self.mode)
-        plain_text = cryptor.decrypt(a2b_hex(text))
-        response = bytes.decode(plain_text).strip('\0').strip('')
-        print(response)
-        response = response.encode('UTF-8')
-        return response
+    def decrypt(self, text):
+        aes = AES.new(self.key, self.mode)
+        try:
+            decrypted = aes.decrypt(a2b_hex(text))
+            results = self.unPad(decrypted.decode("utf-8"))
+        except Exception:
+            results = 'fail'
+        return results
 
 
 # if __name__ == '__main__':
