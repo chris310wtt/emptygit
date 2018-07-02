@@ -28,19 +28,16 @@ class AESUtil(object):
         try:
             decrypted = aes.decrypt(a2b_hex(text))
             results = self.unPad(decrypted.decode("utf-8"))
-        except Exception:
-            results = 'fail'
+        except Exception as e:
+            results = str(e)
         return results
 
 
-# if __name__ == '__main__':
-#     pc = AESUtil()  # 初始化密钥
-#     keyStr = '52fe1fa986cdb7dfc85799a456ad45af'
-#     encryptStr = "{\"busiParams\": {\"serviceNum\": \"010010327881\",\"endTime\": \"2017-08-03\",\"startTime\": \"2017-04-07\"},\"pubInfo\": {\"interfaceId\": \"\",\"transactionId\": \"WEB20170707105545257737\",\"interfaceType\": \"52\",\"opId\": \"9080\",\"countyCode\": \"\",\"orgId\": \"1010001\",\"clientIP\": \"\",\"transactionTime\": \"\",\"regionCode\": \"\"}}"
-#     e = pc.encrypt(encryptStr, keyStr)  # 加密
-#     print(e)
-#     decryptStr = "768CA266D1642825EB882E69BC4402F12C7623A88063AC8ECE7987849FD1EC54ED87276D13B90BADE1FF3EBC99464B5B37029CA551DF0F8D53EB7D83966DFEF23F0016079C0249E424F4337DB57571821A30BD8403F41A6BA9FF9ABE1E0CE6706A11A534440ED85B6C99D68CA91BEFF9"
-#     d = pc.decrypt(decryptStr, keyStr)
-#     # print(isinstance(d, str)) #看下解密后编码格式
-#     # print(type(d))
-#     print(d)
+if __name__ == '__main__':
+    pc = AESUtil('XXXXXXXXXXXXXXXXXXXXXX')  # 初始化密钥
+    encryptStr = "XXXXXXXXXXXXXXXXXXXXXX"   # 需要加密的报文
+    e = pc.encrypt(encryptStr)  # 加密
+    print(e)
+    decryptStr = "XXXXXXXXXXXXXXXXXXXXXX"
+    d = pc.decrypt(decryptStr)     # 需要解密的报文
+    print(d)
